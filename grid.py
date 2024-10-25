@@ -1,7 +1,9 @@
 import random
 
+import numpy as np
 import pygame
 
+from noise import perlin
 from tile import Tile
 
 
@@ -24,17 +26,24 @@ class Grid:
                 tile.draw()
 
     def randomize_corners(self) -> None:
+      # Generate permutation table
+      np.random.seed(0)  # For reproducibility
+      permutation = np.arange(256, dtype=int)
+      np.random.shuffle(permutation)
+      permutation = np.concatenate([permutation, permutation])
       for i in range(self.length + 1):
           for j in range(self.width + 1):
-            b = random.randint(0, 1)
+            x = i / self.length * self.screen.get_width()
+            y = j / self.width * self.screen.get_height()
+            val = round(perlin(x, y, permutation))
             if i < self.length and j < self.width:
-              self.grid[i][j].corners[0] = b
+              self.grid[i][j].corners[0] = val
             if i > 0 and j < self.width:
-              self.grid[i-1][j].corners[1] = b
+              self.grid[i-1][j].corners[1] = val
             if i < self.length and j > 0:
-              self.grid[i][j-1].corners[3] = b
+              self.grid[i][j-1].corners[3] = val
             if i > 0 and j > 0:
-              self.grid[i-1][j-1].corners[2] = b
+              self.grid[i-1][j-1].corners[2] = val
 
     def create_empty_grid(self) -> list[list[Tile]]:
         grid = []
