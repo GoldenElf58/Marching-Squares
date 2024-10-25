@@ -2,11 +2,13 @@ def fade(t):
     """Fade function as defined by Ken Perlin. This eases coordinate values 
     so that they will "ease" towards integral values. This ends up smoothing 
     the final output."""
-    return 6 * t**5 - 15 * t**4 + 10 * t**3
+    return 6 * t ** 5 - 15 * t ** 4 + 10 * t ** 3
+
 
 def lerp(a, b, x):
     """Linear interpolation function."""
     return a + x * (b - a)
+
 
 def grad(hash, x, y):
     """Calculate gradient vector and return the dot product with (x, y)."""
@@ -14,6 +16,7 @@ def grad(hash, x, y):
     u = x if h & 1 == 0 else -x
     v = y if h & 2 == 0 else -y
     return u + v
+
 
 def perlin(x, y, permutation):
     """Generate Perlin noise for coordinates x, y."""
