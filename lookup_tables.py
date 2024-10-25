@@ -12,7 +12,7 @@ EDGE_TABLE: dict[int, list[tuple[int, int]]] = {
     10: [(0, 1), (2, 3)],              # 1010: Corners 1 and 3 inside
     11: [(2, 1)],                      # 1011: Corners 0, 1, and 3 inside
     12: [(1, 2), (2, 3)],              # 1100: Corners 2 and 3 inside
-    13: [(3, 0)],                      # 1101: Corners 0, 2, and 3 inside
-    14: [(3, 1)],                      # 1110: Corners 1, 2, and 3 inside
+    13: [(0, 1)],                      # 1101: Corners 0, 2, and 3 inside
+    14: [(3, 0)],                      # 1110: Corners 1, 2, and 3 inside
     15: [],                            # 1111: All corners inside
 }
