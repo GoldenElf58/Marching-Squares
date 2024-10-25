@@ -8,7 +8,7 @@ def main():
     pygame.init()
     pygame.font.init()
 
-    font: pygame.font.Font = pygame.font.Font('Arial', 24)
+    font: pygame.font.Font = pygame.font.Font(None, 24)
     screen_width, screen_height = 600, 600
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Marching Squares")
