@@ -6,9 +6,9 @@ from rectangle import Rectangle
 
 
 class Tile:
-    def __init__(self, corners: int, row: int, column: int, screen: pygame.Surface,
-                 x, y, side_length, font: pygame.font.Font = None, width=3, color=(255, 255, 255)) -> None:
-        self.corners: int = corners
+    def __init__(self, corners: list[int], row: int, column: int, screen: pygame.Surface,
+                 x, y, side_length, font: pygame.font.Font = None, width=2, color=(255, 255, 255)) -> None:
+        self.corners: list[int] = corners
         self.row: int = row
         self.column: int = column
         self.screen: pygame.Surface = screen
@@ -23,20 +23,27 @@ class Tile:
 
     def set_corners(self, corners: int) -> None:
         self.corners = corners
+    
+    def get_corners(self) -> list[int]:
+      return self.corners
 
     def draw(self) -> None:
         self.rect.draw()
-        # self.screen.blit(self.font.render(self.corners, True, (0, 100, 200)))
-
-        for edges in EDGE_TABLE[self.corners]:
+        
+        int_corners = sum([x * 2 ** i for i, x in enumerate(self.corners)])
+        text = str(int_corners)
+        coordinates = (self.x + self.side_length / 2, self.y + self.side_length / 2)
+        self.screen.blit(self.font.render(text, True, (0, 100, 200)), coordinates)
+        
+        for edges in EDGE_TABLE[int_corners]:
             x1, y1 = self.get_edge_midpoint(edges[0])
             x2, y2 = self.get_edge_midpoint(edges[1])
             line = Line(x1, y1, x2, y2, 1, screen=self.screen, color=self.color)
             line.draw()
 
         for corner in range(4):
-            if 2 ** corner & self.corners == 1:
-                pygame.draw.circle(self.screen, self.color, self.get_corner_location(corner), self.width * 3)
+            if 2 ** corner & int_corners == 1:
+                pygame.draw.circle(self.screen, (255, 0, 0), self.get_corner_location(corner), self.width * 3)
 
     def get_corner_location(self, corner: int) -> tuple[int, int]:
         match corner:
