@@ -19,7 +19,7 @@ class Tile:
         self.color: tuple[int, int, int] = color
         self.width: int = width
         self.rect: Rectangle = Rectangle(self.x, self.y, self.side_length, self.side_length, color=self.color,
-                                         screen=self.screen, width=self.width)
+                                         screen=self.screen, width=self.width/2)
 
     def set_corners(self, corners: int) -> None:
         self.corners = corners
@@ -28,22 +28,22 @@ class Tile:
       return self.corners
 
     def draw(self) -> None:
-        self.rect.draw()
+        # self.rect.draw()
         
         int_corners = sum([x * 2 ** i for i, x in enumerate(self.corners)])
-        text = str(int_corners)
-        coordinates = (self.x + self.side_length / 2, self.y + self.side_length / 2)
-        self.screen.blit(self.font.render(text, True, (0, 100, 200)), coordinates)
+        # text = str(int_corners)
+        # coordinates = (self.x + self.side_length / 2, self.y + self.side_length / 2)
+        # self.screen.blit(self.font.render(text, True, (0, 100, 200)), coordinates)
         
         for edges in EDGE_TABLE[int_corners]:
             x1, y1 = self.get_edge_midpoint(edges[0])
             x2, y2 = self.get_edge_midpoint(edges[1])
-            line = Line(x1, y1, x2, y2, 1, screen=self.screen, color=self.color)
+            line = Line(x1, y1, x2, y2, width=self.width, screen=self.screen, color=self.color)
             line.draw()
 
-        for corner in range(4):
-            if 2 ** corner & int_corners == 1:
-                pygame.draw.circle(self.screen, (255, 0, 0), self.get_corner_location(corner), self.width * 3)
+        # for corner in range(4):
+        #     if 2 ** corner & int_corners == 1:
+        #         pygame.draw.circle(self.screen, (255, 0, 0), self.get_corner_location(corner), self.width * 3)
 
     def get_corner_location(self, corner: int) -> tuple[int, int]:
         match corner:
