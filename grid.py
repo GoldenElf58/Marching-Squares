@@ -27,8 +27,8 @@ class Grid:
     def set_corners(self, z) -> None:
         for i in range(self.length + 1):
             for j in range(self.width + 1):
-                x = i / self.width * 100
-                y = j / self.length * 100
+                x = i / self.width / self.columns * 6400
+                y = j / self.length / self.rows * 6400
                 val = pnoise3(x, y, z)
                 # val = round(perlin(x, y, permutation))
                 if i < self.length and j < self.width:

@@ -1,5 +1,3 @@
-from opensimplex import OpenSimplex
-
 EDGE_TABLE: dict[int, list[tuple[int, int]]] = {
     0: [],                             # 0000: No corners inside
     1: [(3, 0)],                       # 0001: Corner 0 inside
@@ -21,7 +19,7 @@ EDGE_TABLE: dict[int, list[tuple[int, int]]] = {
 
 # noise = OpenSimplex(0)
 
-# # Generate permutation table
+# Generate permutation table
 # np.random.seed(0)  # For reproducibility
 # permutation = np.arange(256, dtype=int)
 # np.random.shuffle(permutation)
