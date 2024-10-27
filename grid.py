@@ -1,10 +1,6 @@
-# import random
-
 import pygame
 from noise import pnoise3
 
-# from constants import noise
-# from my_noise import perlin
 from tile import Tile
 
 

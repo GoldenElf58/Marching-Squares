@@ -24,16 +24,16 @@ def perlin(x, y, permutation):
     yi = int(y) & 255
     xf = x - int(x)
     yf = y - int(y)
-
+    
     u = fade(xf)
     v = fade(yf)
-
+    
     aa = permutation[permutation[xi] + yi]
     ab = permutation[permutation[xi] + yi + 1]
     ba = permutation[permutation[xi + 1] + yi]
     bb = permutation[permutation[xi + 1] + yi + 1]
-
+    
     x1 = lerp(grad(aa, xf, yf), grad(ba, xf - 1, yf), u)
     x2 = lerp(grad(ab, xf, yf - 1), grad(bb, xf - 1, yf - 1), u)
-
+    
     return lerp(x1, x2, v)  # Normalize to 0 - 1

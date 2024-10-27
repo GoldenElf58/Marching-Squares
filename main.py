@@ -1,5 +1,4 @@
 import sys
-import time
 
 import pygame
 
@@ -8,7 +7,7 @@ from grid import Grid
 
 def main():
     show_fps = False
-
+    
     pygame.init()
     pygame.font.init()
     
@@ -20,12 +19,12 @@ def main():
     
     resolution = 7  # Lower resolution value is more fine
     grid: Grid = Grid(screen_width // resolution, screen_height // resolution, screen, font=font, smooth=True)
-
+    
     z = 0
     while True:
         dt = clock.tick(60) / 1000
         z += dt * .5
-
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -33,7 +32,7 @@ def main():
             if event.type == pygame.KEYDOWN:
                 show_fps = not show_fps
         screen.fill((0, 0, 0))
-
+        
         grid.set_corners(z)
         grid.draw()
         

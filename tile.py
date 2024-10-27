@@ -1,10 +1,6 @@
-from math import ceil
-# from random import random
-
 import pygame
 
 from constants import EDGE_TABLE
-# from rectangle import Rectangle
 
 
 class Tile:
@@ -22,22 +18,20 @@ class Tile:
         self.color: tuple[int, int, int] = color
         self.stroke: int = stroke
         self.smooth: bool = smooth
-        # self.rect: Rectangle = Rectangle(self.x, self.y, self.side_length, self.side_length, color=self.color,
-        #                                  screen=self.screen, width=self.width / 2)
-
+    
     def set_corners(self, corners: int) -> None:
         self.corners = corners
-
+    
     def get_corners(self) -> list[float]:
         return self.corners
-
+    
     def draw(self) -> None:
         isovalue = 0.0  # Value to draw boundary line
         int_corners = 0  # Corner locations in binary
         for i, value in enumerate(self.corners):
             if value >= isovalue:
                 int_corners |= 1 << i
-
+        
         for edges in EDGE_TABLE[int_corners]:
             if self.smooth:
                 y1, x1 = self.get_edge_point_location(edges[0], isovalue)
@@ -46,7 +40,7 @@ class Tile:
                 y1, x1 = self.get_edge_midpoint(edges[0])
                 y2, x2 = self.get_edge_midpoint(edges[1])
             pygame.draw.line(self.screen, self.color, (x1, y1), (x2, y2), self.stroke)
-
+    
     def get_edge_point_location(self, edge: int, isovalue: float = 0.0) -> tuple[float, float]:
         match edge:
             case 0:
@@ -67,9 +61,9 @@ class Tile:
                 y = self.y + self.height * (1 - mu)
             case _:
                 raise ValueError("Invalid edge")
-
+        
         return x, y
-
+    
     @staticmethod
     def calculate_multiplier(a: float, b: float, isovalue: float = 0.0) -> float:
         delta = b - a
@@ -78,7 +72,7 @@ class Tile:
         mu = (isovalue - a) / delta
         mu = max(0.0, min(1.0, mu))
         return mu
-
+    
     def get_corner_location(self, corner: int) -> tuple[int, int]:
         match corner:
             case 0:
@@ -95,9 +89,9 @@ class Tile:
                 y = self.y + self.height
             case _:
                 raise ValueError("Invalid corner")
-
+        
         return x, y
-
+    
     def get_edge_midpoint(self, edge: int) -> tuple[int, int]:
         match edge:
             case 0:
@@ -114,5 +108,5 @@ class Tile:
                 y = self.y + self.height / 2
             case _:
                 raise ValueError("Invalid edge")
-
+        
         return x, y

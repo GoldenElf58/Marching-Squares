@@ -1,8 +1,3 @@
-# import numpy as np
-
-# from opensimplex import OpenSimplex
-# from perlin_noise import PerlinNoise
-
 EDGE_TABLE: dict[int, list[tuple[int, int]]] = {
     0: [],                             # 0000: No corners inside
     1: [(3, 0)],                       # 0001: Corner 0 inside
@@ -21,12 +16,3 @@ EDGE_TABLE: dict[int, list[tuple[int, int]]] = {
     14: [(3, 0)],                      # 1110: Corners 1, 2, and 3 inside
     15: [],                            # 1111: All corners inside
 }
-
-# noise = OpenSimplex(0)
-# noise = PerlinNoise()
-
-# # Generate permutation table
-# np.random.seed(0)  # For reproducibility
-# permutation = np.arange(256, dtype=int)
-# np.random.shuffle(permutation)
-# permutation = np.concatenate([permutation, permutation])
