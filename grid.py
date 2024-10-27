@@ -1,4 +1,4 @@
-from math import ceil
+# import random
 
 import pygame
 from noise import pnoise3
@@ -25,10 +25,11 @@ class Grid:
                 tile.draw()
 
     def set_corners(self, z) -> None:
-        for i in range(self.length + 1):
-            for j in range(self.width + 1):
+        for i in range(self.columns):
+            for j in range(self.rows):
                 x = i / self.width / self.columns * 6400
                 y = j / self.length / self.rows * 6400
+                # val = random.random() * 2 - 1
                 val = pnoise3(x, y, z)
                 # val = round(perlin(x, y, permutation))
                 if i < self.length and j < self.width:
@@ -42,9 +43,9 @@ class Grid:
 
     def create_empty_grid(self) -> list[list[Tile]]:
         grid = []
-        for i in range(self.length):
+        for i in range(self.rows):
             grid.append([])
-            for j in range(self.width):
+            for j in range(self.columns):
                 grid[i].append(None)
         return grid
 

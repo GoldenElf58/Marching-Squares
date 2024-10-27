@@ -1,7 +1,6 @@
 from math import ceil
 # from random import random
 
-import matplotlib.pyplot as plt
 import pygame
 
 from constants import EDGE_TABLE
@@ -40,8 +39,7 @@ class Tile:
         for edges in EDGE_TABLE[int_corners]:
             x1, y1 = self.get_edge_point_location(edges[0])
             x2, y2 = self.get_edge_point_location(edges[1])
-            plt.plot([x1, x2], [y1, y2], color="black")
-            # pygame.draw.line(self.screen, self.color, (x1, y1), (x2, y2), self.width)
+            pygame.draw.line(self.screen, self.color, (x1, y1), (x2, y2), self.width)
 
     def get_edge_point_location(self, edge: int) -> tuple[float, float]:
         isovalue = 0.0  # Use your actual isovalue
