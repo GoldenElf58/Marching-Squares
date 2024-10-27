@@ -12,7 +12,7 @@ def main():
     show_fps = False
     debug = False
     scale = 5  # Higher scale is more zoomed out
-    resolution = 8  # Lower resolution value is more fine
+    resolution = 10  # Lower resolution value is more fine
     anim_speed = 0.5  # Higher value is faster
     screen_width, screen_height = 1024, 1024
 
