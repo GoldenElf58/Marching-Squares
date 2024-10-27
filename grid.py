@@ -5,7 +5,8 @@ from tile import Tile
 
 
 class Grid:
-    def __init__(self, columns: int, rows: int, screen: pygame.Surface, *, font, smooth=True, scale=10, debug=False) -> None:
+    def __init__(self, columns: int, rows: int, screen: pygame.Surface, *, font, smooth=True, scale=10, debug=False,
+                 show_gradient=False) -> None:
         self.columns: int = columns
         self.rows: int = rows
         self.screen: pygame.Surface = screen
@@ -14,10 +15,29 @@ class Grid:
         self.width: int = screen.get_width()
         self.scale: int = scale
         self.debug: bool = debug
+        self.show_gradient: bool = show_gradient
 
         self.grid: list[list[Tile]] = self.create_empty_grid()
         self.initialize_grid(smooth=smooth)
         self.set_corners(0)
+    
+    def set_smooth(self, smooth: bool) -> None:
+        for row in self.grid:
+            for tile in row:
+                tile.smooth = smooth
+    
+    def set_debug(self, debug: bool) -> None:
+        for row in self.grid:
+            for tile in row:
+                tile.debug = debug
+    
+    def set_show_gradient(self, show_gradient: bool) -> None:
+        for row in self.grid:
+            for tile in row:
+                tile.show_gradient = show_gradient
+    
+    def set_scale(self, scale: int) -> None:
+        self.scale = scale
     
     def draw(self) -> None:
         for row in self.grid:
@@ -27,8 +47,9 @@ class Grid:
     def set_corners(self, z) -> None:
         for i in range(self.rows + 1):
             for j in range(self.columns + 1):
-                x = i / self.rows * self.scale
-                y = j / self.columns * self.scale
+                divisor = min(self.columns, self.rows)
+                x = i / divisor * self.scale
+                y = j / divisor * self.scale
                 val = pnoise3(x, y, z)
                 if i < self.height and j < self.width:
                     self.grid[i][j].corners[0] = val
@@ -52,4 +73,5 @@ class Grid:
             for j, tile in enumerate(row):
                 self.grid[i][j] = Tile([0, 0, 0, 0], i, j, self.screen, i * self.width / self.columns,
                                        j * self.height / self.rows, width=self.width / self.columns,
-                                       height=self.height / self.rows, font=self.font, smooth=smooth)
+                                       height=self.height / self.rows, font=self.font, smooth=smooth, debug=self.debug,
+                                       show_gradient=self.show_gradient)
