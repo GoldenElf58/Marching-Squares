@@ -5,14 +5,16 @@ from tile import Tile
 
 
 class Grid:
-    def __init__(self, columns: int, rows: int, screen: pygame.Surface, *, font, smooth=True) -> None:
+    def __init__(self, columns: int, rows: int, screen: pygame.Surface, *, font, smooth=True, scale=10, debug=False) -> None:
         self.columns: int = columns
         self.rows: int = rows
         self.screen: pygame.Surface = screen
         self.font = font
         self.height: int = screen.get_height()
         self.width: int = screen.get_width()
-        
+        self.scale: int = scale
+        self.debug: bool = debug
+
         self.grid: list[list[Tile]] = self.create_empty_grid()
         self.initialize_grid(smooth=smooth)
         self.set_corners(0)
@@ -25,8 +27,8 @@ class Grid:
     def set_corners(self, z) -> None:
         for i in range(self.rows + 1):
             for j in range(self.columns + 1):
-                x = i / self.rows * 10
-                y = j / self.columns * 10
+                x = i / self.rows * self.scale
+                y = j / self.columns * self.scale
                 val = pnoise3(x, y, z)
                 if i < self.height and j < self.width:
                     self.grid[i][j].corners[0] = val
