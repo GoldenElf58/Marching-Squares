@@ -36,4 +36,4 @@ def perlin(x, y, permutation):
     x1 = lerp(grad(aa, xf, yf), grad(ba, xf - 1, yf), u)
     x2 = lerp(grad(ab, xf, yf - 1), grad(bb, xf - 1, yf - 1), u)
 
-    return (lerp(x1, x2, v) + 1) / 2  # Normalize to 0 - 1
+    return lerp(x1, x2, v)  # Normalize to 0 - 1
