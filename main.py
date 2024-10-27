@@ -52,7 +52,7 @@ def main():
                 if event.key == pygame.K_d:
                     debug = not debug
                     grid.set_debug(debug)
-                if event.key == pygame.K_a:
+                if event.key in {pygame.K_a, pygame.K_k}:
                     animate = not animate
                 if event.key == pygame.K_UP:
                     anim_speed += 0.1
