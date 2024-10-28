@@ -1,6 +1,7 @@
 import pygame
-from noise import pnoise3
+# from noise import pnoise3
 
+from my_noise import perlin, permutation
 from tile import Tile
 
 
@@ -50,7 +51,8 @@ class Grid:
                 divisor = min(self.columns, self.rows)
                 x = i / divisor * self.scale
                 y = j / divisor * self.scale
-                val = pnoise3(x, y, z)
+                val = perlin(x, y, z, permutation)
+                # val = pnoise3(x, y, z)
                 if i < self.height and j < self.width:
                     self.grid[i][j].corners[0] = val
                 if i > 0 and j < self.width:

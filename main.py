@@ -12,7 +12,7 @@ def main():
     show_fps = False
     debug = False
     scale = 5  # Higher scale is more zoomed out
-    resolution = 10  # Lower resolution value is more fine
+    resolution = 8  # Lower resolution value is more fine
     anim_speed = 0.5  # Higher value is faster
     screen_width, screen_height = 1024, 1024
 
@@ -55,10 +55,10 @@ def main():
                 if event.key in {pygame.K_a, pygame.K_k}:
                     animate = not animate
                 if event.key == pygame.K_UP:
-                    anim_speed += 0.1
+                    anim_speed *= 1.1
                     print(f'anim_speed: {anim_speed:.2f}')
                 if event.key == pygame.K_DOWN:
-                    anim_speed -= 0.1
+                    anim_speed *= .9
                     print(f'anim_speed: {anim_speed:.2f}')
                 if event.key == pygame.K_g:
                     show_gradient = not show_gradient
