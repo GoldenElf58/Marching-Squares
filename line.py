@@ -13,7 +13,7 @@ class Line(Shape):
         self.color: tuple = color
         self.screen: pygame.Surface | None = screen
 
-    def draw(self, screen: pygame.Surface = None) -> None:
+    def draw(self, screen: pygame.Surface | None = None) -> None:
         if screen is None:
             if self.screen is None:
                 raise ValueError("screen is None")

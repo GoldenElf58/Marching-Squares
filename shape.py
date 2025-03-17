@@ -1,8 +1,8 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 import pygame
 
 
 class Shape:
     @abstractmethod
-    def draw(self, screen: pygame.Surface = None) -> None: ...
+    def draw(self, screen: pygame.Surface | None = None) -> None: ...

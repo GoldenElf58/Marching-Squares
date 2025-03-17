@@ -2,10 +2,12 @@ import sys
 
 import pygame
 
+from pygame.font import Font
+from pygame.time import Clock
 from grid import Grid
 
 
-def main():
+def main() -> None:
     smooth = True
     animate = True
     show_gradient = False
@@ -14,21 +16,21 @@ def main():
     scale = 5  # Higher scale is more zoomed out
     resolution = 8  # Lower resolution value is more fine
     anim_speed = 0.5  # Higher value is faster
-    screen_width, screen_height = 1024, 1024
+    screen_width, screen_height = 1024, 914
 
     pygame.init()
     pygame.font.init()
     
-    small_font: pygame.font.Font = pygame.font.Font(None, 12)
-    font: pygame.font.Font = pygame.font.Font(None, 32)
+    small_font: Font = Font(None, 12)
+    font: Font = Font(None, 32)
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Marching Squares")
-    clock: pygame.time.Clock = pygame.time.Clock()
+    clock: Clock = Clock()
     
     grid: Grid = Grid(screen_width // resolution, screen_height // resolution, screen, font=small_font, smooth=smooth,
                       scale=scale, debug=debug, show_gradient=show_gradient)
     
-    z = 0
+    z: float = 0
     while True:
         if animate:
             dt = clock.tick(60) / 1000

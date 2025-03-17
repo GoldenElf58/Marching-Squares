@@ -1,5 +1,5 @@
 import pygame
-from noise import pnoise3
+from noise import pnoise3  # type: ignore
 
 # from my_noise import perlin, permutation
 from tile import Tile
@@ -18,8 +18,8 @@ class Grid:
         self.debug: bool = debug
         self.show_gradient: bool = show_gradient
 
-        self.grid: list[list[Tile]] = self.create_empty_grid()
-        self.initialize_grid(smooth=smooth)
+        self.grid: list[list[Tile]] = []
+        self.create_initialized_grid(smooth=smooth)
         self.set_corners(0)
     
     def set_smooth(self, smooth: bool) -> None:
@@ -62,18 +62,11 @@ class Grid:
                 if i > 0 and j > 0:
                     self.grid[i - 1][j - 1].corners[2] = val
     
-    def create_empty_grid(self) -> list[list[Tile]]:
-        grid = []
+    def create_initialized_grid(self, smooth=True) -> None:
+        self.grid = []
         for i in range(self.rows + 1):
-            grid.append([])
+            self.grid.append([])
             for j in range(self.columns + 1):
-                grid[i].append(None)
-        return grid
-    
-    def initialize_grid(self, smooth=True) -> None:
-        for i, row in enumerate(self.grid):
-            for j, tile in enumerate(row):
-                self.grid[i][j] = Tile([0, 0, 0, 0], i, j, self.screen, i * self.width / self.columns,
+                self.grid[i].append(Tile([0, 0, 0, 0], i, j, self.screen, i * self.width / self.columns,
                                        j * self.height / self.rows, width=self.width / self.columns,
-                                       height=self.height / self.rows, font=self.font, smooth=smooth, debug=self.debug,
-                                       show_gradient=self.show_gradient)
+                                       height=self.height / self.rows, font=self.font, smooth=smooth, debug=self.debug,))

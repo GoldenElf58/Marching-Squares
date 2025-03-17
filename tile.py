@@ -1,5 +1,3 @@
-from random import random
-
 import pygame
 
 from constants import EDGE_TABLE
@@ -7,13 +5,12 @@ from constants import EDGE_TABLE
 
 class Tile:
     def __init__(self, corners: list[float], row: int, column: int, screen: pygame.Surface, x, y, *, width, height,
-                 font: pygame.font.Font = None, stroke=2, color=(255, 255, 255), smooth=True, debug=False,
-                 show_gradient=False) -> None:
+                 font: pygame.font.Font | None = None, stroke=2, color=(255, 255, 255), smooth=True, debug=False) -> None:
         self.corners: list[float] = corners
         self.row: int = row
         self.column: int = column
         self.screen: pygame.Surface = screen
-        self.font: pygame.font.Font = font
+        self.font: pygame.font.Font | None = font
         self.x: int = x
         self.y: int = y
         self.width: int = width  # x length
@@ -33,7 +30,7 @@ class Tile:
         int_corners = self.calculate_int_corners()
         
         if self.debug:
-            self.show_debug(int_corners)
+            self.show_debug()
 
         for edges in EDGE_TABLE[int_corners]:
             if self.smooth:
@@ -58,7 +55,7 @@ class Tile:
         # coords = (x - self.width, y - self.height, x + self.width, y + self.height)
         # pygame.draw.rect(self.screen, (c, c, c), (coords, 0)
 
-    def show_debug(self, int_corners) -> None:
+    def show_debug(self) -> None:
         pygame.draw.rect(self.screen, (255, 10, 10), (self.x, self.y, self.x + self.width, self.y + self.height), 1)
         # coords = (self.x + self.width // 2, self.y + self.height // 2)
         # self.screen.blit(self.font.render(f"{int_corners}", True, (255, 255, 255)), coords)
@@ -79,9 +76,9 @@ class Tile:
         """
         match edge:
             case 0:
-                mu = Tile.calculate_multiplier(self.corners[0], self.corners[1], isovalue)
-                x = self.x + self.width * mu
-                y = self.y
+                mu: float = Tile.calculate_multiplier(self.corners[0], self.corners[1], isovalue)
+                x: float = self.x + self.width * mu
+                y: float = self.y
             case 1:
                 mu = Tile.calculate_multiplier(self.corners[1], self.corners[2], isovalue)
                 x = self.x + self.width
@@ -154,7 +151,7 @@ class Tile:
         
         return x, y
     
-    def get_edge_midpoint(self, edge: int) -> tuple[int, int]:
+    def get_edge_midpoint(self, edge: int) -> tuple[float, float]:
         """
         Get the coordinates of the midpoint of a tile edge.
 
@@ -169,8 +166,8 @@ class Tile:
         """
         match edge:
             case 0:
-                x = self.x + self.width / 2
-                y = self.y
+                x: float = self.x + self.width / 2
+                y: float = self.y
             case 1:
                 x = self.x + self.width
                 y = self.y + self.height / 2

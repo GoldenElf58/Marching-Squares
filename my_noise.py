@@ -9,7 +9,7 @@ grad3 = np.array([
 ])
 
 
-def perlin(x, y, z, permutation):
+def perlin(x, y, z, _permutation):
     """Generate Perlin noise for coordinates x, y, z."""
     # Calculate unit cube coordinates and relative positions
     xi_float = np.floor(x)
@@ -30,7 +30,7 @@ def perlin(x, y, z, permutation):
     w = zf * zf * zf * (zf * (zf * 6 - 15) + 10)
     
     # Permutation table
-    p = permutation
+    p = _permutation
     
     # Hash coordinates of cube corners
     xi_plus1 = (xi + 1) & 255
@@ -56,9 +56,9 @@ def perlin(x, y, z, permutation):
     bbb = p[yi_plus1_p_plus1 + zi_plus1]
     
     # Gradients
-    def grad(hash_value, x, y, z):
+    def grad(hash_value, _x, _y, _z):
         g = grad3[hash_value & 15]
-        return g[0] * x + g[1] * y + g[2] * z
+        return g[0] * _x + g[1] * _y + g[2] * _z
     
     # Gradient calculations
     x1 = (1 - v) * ((1 - u) * grad(aaa, xf, yf, zf) + u * grad(baa, xf - 1, yf, zf)) + \

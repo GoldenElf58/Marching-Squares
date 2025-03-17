@@ -13,7 +13,7 @@ class Rectangle(Shape):
         self.screen: pygame.Surface | None = screen
         self.width: int = int(width)
 
-    def draw(self, screen: pygame.Surface = None) -> None:
+    def draw(self, screen: pygame.Surface | None = None) -> None:
         if screen is None:
             if self.screen is None:
                 raise ValueError("screen is None")
